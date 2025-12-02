@@ -1,3 +1,4 @@
+use alloc::vec::Vec;
 use rand::RngCore;
 
 use crate::error::{Sm2Error, Sm2Result};

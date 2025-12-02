@@ -159,6 +159,7 @@ mod test_mod_operation {
         ];
 
         let r = fn_mul(&a, &b);
+        #[cfg(feature = "std")]
         println!("{:x?}", r);
 
         let a1 = BigUint::from_bytes_be(
@@ -177,6 +178,7 @@ mod test_mod_operation {
         );
 
         let r = ((&a1 * &b1) % n1).to_u64_digits();
+        #[cfg(feature = "std")]
         println!("{:x?}", r);
 
     }
