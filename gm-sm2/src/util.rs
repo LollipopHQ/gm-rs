@@ -1,3 +1,4 @@
+use alloc::vec::Vec;
 use byteorder::{BigEndian, WriteBytesExt};
 use gm_sm3::sm3_hash;
 
@@ -269,24 +270,30 @@ mod test_operation {
         .unwrap();
 
         let (r, _c) = add_raw_u64(&a, &b);
+        #[cfg(feature = "std")]
         println!("sum r={:?}", r);
 
         let mut sum = (&a1 + &b1).to_u64_digits();
         sum.reverse();
+        #[cfg(feature = "std")]
         println!("sum r={:?}", &sum[1..]);
 
         let (r, _c) = sub_raw_u64(&a, &b);
+        #[cfg(feature = "std")]
         println!("sub r={:?}", r);
 
         let mut sub = (&a1 - &b1).to_u64_digits();
         sub.reverse();
+        #[cfg(feature = "std")]
         println!("sub r={:?}", sub.as_slice());
 
         let r = mul_raw_u64(&a, &b);
+        #[cfg(feature = "std")]
         println!("mul r={:?}", r);
 
         let mut mul = (&a1 * &b1).to_u64_digits();
         mul.reverse();
+        #[cfg(feature = "std")]
         println!("mul r={:?}", mul.as_slice());
     }
 }

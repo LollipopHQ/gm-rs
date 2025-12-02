@@ -1,4 +1,5 @@
-use std::str::FromStr;
+use alloc::vec::Vec;
+use core::str::FromStr;
 
 use pkcs8::der::zeroize::Zeroizing;
 use pkcs8::der::{Decode, Encode};
@@ -124,12 +125,14 @@ mod test_pkcs {
         let (pk, sk) = gen_keypair().unwrap();
         let pub_str = pk.to_public_key_pem(LineEnding::CRLF).unwrap();
         let pri_str = sk.to_pkcs8_pem(LineEnding::CRLF).unwrap();
-        println!("{}", pub_str.as_str());
-        println!("{}", pri_str.as_str());
+        #[cfg(feature = "std")]
+        {
+            println!("{}", pub_str.as_str());
+            println!("{}", pri_str.as_str());
 
-        println!("pub key hex: {:?}", pk.to_hex_string(false));
-        println!("pri key hex: {:?}", sk.to_hex_string());
-
+            println!("pub key hex: {:?}", pk.to_hex_string(false));
+            println!("pri key hex: {:?}", sk.to_hex_string());
+        }
         let sk = Sm2PrivateKey::from_pkcs8_pem(pri_str.as_str()).unwrap();
         let pk = Sm2PublicKey::from_public_key_pem(pub_str.as_str()).unwrap();
         let msg = "你好 world,asjdkajhdjadahkubbhj12893718927391873891,@@！！ world,1231 wo12321321313asdadadahello world，hello world".as_bytes();

@@ -1,3 +1,4 @@
+use alloc::{vec, vec::Vec};
 use crate::error::{Sm2Error, Sm2Result};
 use crate::fields::fp64::{fp_sqrt, fp_from_mont, fp_to_mont, SM2_P};
 use crate::fields::FieldModOperation;
@@ -310,9 +311,12 @@ mod test {
                     .unwrap(),
             ),
         };
-        println!("is_valid = {}", p.is_valid());
-        println!("is_valid_affine_point = {}", p.is_valid_affine_point());
-        println!();
+        #[cfg(feature = "std")]
+        {
+            println!("is_valid = {}", p.is_valid());
+            println!("is_valid_affine_point = {}", p.is_valid_affine_point());
+            println!();
+        }
 
         // Affine Point [1]G with Montgomery Coordinates
         let p = Point {
@@ -329,9 +333,12 @@ mod test {
                     .unwrap(),
             ),
         };
-        println!("is_valid = {}", p.is_valid());
-        println!("is_valid_affine_point = {}", p.is_valid_affine_point());
-        println!();
+        #[cfg(feature = "std")]
+        {
+            println!("is_valid = {}", p.is_valid());
+            println!("is_valid_affine_point = {}", p.is_valid_affine_point());
+            println!();
+        }
 
         // Jacobian Point [2]G with Montgomery Coordinates
         let p = Point {
@@ -348,13 +355,15 @@ mod test {
                     .unwrap(),
             ),
         };
-
-        println!("is_valid = {}", p.is_valid());
-        println!(
-            "is_valid_affine_point = {}",
-            p.to_affine_point().is_valid_affine_point()
-        );
-        println!();
+        #[cfg(feature = "std")]
+        {
+            println!("is_valid = {}", p.is_valid());
+            println!(
+                "is_valid_affine_point = {}",
+                p.to_affine_point().is_valid_affine_point()
+            );
+            println!();
+        }
 
         let scalar: &[u64; 4] = &[
             0xfffff8950000053b,
@@ -364,12 +373,15 @@ mod test {
         ];
 
         let p = g_mul(&scalar);
-        println!("is_valid = {}", p.is_valid());
-        println!(
-            "is_valid_affine_point = {}",
-            p.to_affine_point().is_valid_affine_point()
-        );
-        println!();
+        #[cfg(feature = "std")]
+        {
+            println!("is_valid = {}", p.is_valid());
+            println!(
+                "is_valid_affine_point = {}",
+                p.to_affine_point().is_valid_affine_point()
+            );
+            println!();
+        }
 
         let scalar: &[u64; 4] = &[
             0xd89cdf6229c4bddf,
@@ -395,10 +407,13 @@ mod test {
         let pro_mont_point_g = to_jacobi(&mont_g_x, &mont_g_y);
 
         let r = pro_mont_point_g.scalar_mul(scalar);
-        println!("is_valid = {}", r.is_valid());
-        println!(
-            "is_valid_affine_point = {}",
-            r.to_affine_point().is_valid_affine_point()
-        );
+        #[cfg(feature = "std")]
+        {
+            println!("is_valid = {}", r.is_valid());
+            println!(
+                "is_valid_affine_point = {}",
+                r.to_affine_point().is_valid_affine_point()
+            );
+        }
     }
 }

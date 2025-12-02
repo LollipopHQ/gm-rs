@@ -81,6 +81,7 @@ pub const OID_SM2_CMS_KEY_AGREEMENT_INFO: ObjectIdentifier = ObjectIdentifier::n
 
 #[cfg(test)]
 mod test_sm2 {
+    use alloc::vec;
     use crate::exchange;
     use crate::key::{gen_keypair, Sm2Model, Sm2PrivateKey, Sm2PublicKey};
 
@@ -91,7 +92,9 @@ mod test_sm2 {
         // let msg = "你好 hello world".as_bytes();
         let encrypt = pk.encrypt(&msg, false, Sm2Model::C1C2C3).unwrap();
         let plain = sk.decrypt(&encrypt, false, Sm2Model::C1C2C3).unwrap();
+        #[cfg(feature = "std")]
         println!("public key {}", pk.to_hex_string(false));
+        #[cfg(feature = "std")]
         println!("private key {}", sk.to_hex_string());
         assert_eq!(msg, plain)
     }
@@ -138,7 +141,9 @@ mod test_sm2 {
         let pk = Sm2PublicKey::from_hex_string(public_key).unwrap();
         let sk = Sm2PrivateKey::from_hex_string(private_key).unwrap();
         let signature = sk.sign(None, msg).unwrap();
+        #[cfg(feature = "std")]
         println!("r = {:?}", &signature[..32]);
+        #[cfg(feature = "std")]
         println!("s = {:?}", &signature[32..]);
         pk.verify(None, msg, &signature).unwrap();
     }

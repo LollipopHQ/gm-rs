@@ -1,5 +1,5 @@
-use std::fmt::Debug;
-
+use core::fmt::Debug;
+use alloc::vec::Vec;
 pub mod fn64;
 pub mod fp64;
 

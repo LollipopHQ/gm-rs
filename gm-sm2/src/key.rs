@@ -1,3 +1,4 @@
+use alloc::{vec, vec::Vec, string::{String, ToString}};
 use hex::{FromHexError, ToHex};
 use num_bigint::BigUint;
 

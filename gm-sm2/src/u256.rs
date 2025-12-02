@@ -1,5 +1,5 @@
-use byteorder::{BigEndian, ReadBytesExt, WriteBytesExt};
-use std::io::Cursor;
+use alloc::vec::Vec;
+use byteorder::{BigEndian, WriteBytesExt};
 
 pub type U256 = [u64; 4];
 pub type U512 = [u64; 8];
@@ -115,7 +115,7 @@ pub fn u256_mul(a: &U256, b: &U256) -> U512 {
         b_[2 * i + 1] = b[i] >> 32;
     }
 
-    let mut u = 0;
+    let mut u;
     for i in 0..8 {
         u = 0;
         for j in 0..8 {
@@ -173,10 +173,10 @@ pub fn u256_to_be_bytes(a: &U256) -> Vec<u8> {
 #[inline(always)]
 pub fn u256_from_be_bytes(input: &[u8]) -> U256 {
     let mut elem = [0, 0, 0, 0];
-    let mut c = Cursor::new(input);
-    for i in (0..4).rev() {
-        elem[i] = c.read_u64::<BigEndian>().unwrap();
-    }
+    elem[3] = u64::from_be_bytes(input[0..8].try_into().unwrap());
+    elem[2] = u64::from_be_bytes(input[8..16].try_into().unwrap());
+    elem[1] = u64::from_be_bytes(input[16..24].try_into().unwrap());
+    elem[0] = u64::from_be_bytes(input[24..32].try_into().unwrap());
     elem
 }
 
