@@ -1,5 +1,5 @@
-use std::fmt::Display;
-use std::fmt::Formatter;
+use core::fmt::Display;
+use core::fmt::Formatter;
 
 pub type Sm2Result<T> = Result<T, Sm2Error>;
 
@@ -26,8 +26,8 @@ pub enum Sm2Error {
     KdfHashError,
 }
 
-impl ::std::fmt::Debug for Sm2Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> ::std::fmt::Result {
+impl core::fmt::Debug for Sm2Error {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         write!(f, "{}", self)
     }
 }
@@ -59,7 +59,7 @@ impl From<Sm2Error> for &str {
 }
 
 impl Display for Sm2Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
         let err_msg = match self {
             Sm2Error::NotOnCurve => "the point not on curve",
             Sm2Error::FieldSqrtError => "field elem sqrt error",

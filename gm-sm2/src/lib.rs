@@ -6,6 +6,7 @@
 extern crate std;
 
 extern crate alloc;
+extern crate core;
 
 use pkcs8::ObjectIdentifier;
 use pkcs8::spki::AlgorithmIdentifier;
