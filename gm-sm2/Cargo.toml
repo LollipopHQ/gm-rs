@@ -42,7 +42,10 @@ optional = true
 
 
 [features]
-default = ["sec1"]
+default = [
+    "sec1",
+    "gm-sm3",
+]
 std = [
     "gm-sm3/std"
 ]

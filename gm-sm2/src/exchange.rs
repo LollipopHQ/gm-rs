@@ -1,3 +1,4 @@
+use alloc::vec::Vec;
 use byteorder::{BigEndian, WriteBytesExt};
 
 use gm_sm3::sm3_hash;
