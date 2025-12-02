@@ -1,6 +1,13 @@
 #![doc = include_str!("../README.md")]
 
-use std::fmt::{Display, Formatter};
+#![cfg_attr(not(feature = "std"), no_std)]
+
+#[cfg(feature = "std")]
+extern crate std;
+
+extern crate alloc;
+use alloc::vec::Vec;
+use core::fmt::{self, Debug, Display, Formatter};
 use const_oid::ObjectIdentifier;
 
 
@@ -10,8 +17,8 @@ pub enum Sm3Error {
     ErrorMsgLen,
 }
 
-impl std::fmt::Debug for Sm3Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> ::std::fmt::Result {
+impl Debug for Sm3Error {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         write!(f, "{}", self)
     }
 }
@@ -25,7 +32,7 @@ impl From<Sm3Error> for &str {
 }
 
 impl Display for Sm3Error {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         let err_msg = match self {
             Sm3Error::ErrorMsgLen => "SM3 Pad error: error msg len",
         };
