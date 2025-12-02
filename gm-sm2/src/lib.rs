@@ -1,5 +1,7 @@
 #![doc = include_str!("../README.md")]
-
+#![allow(unused_variables)]
+#![allow(unused_assignments)]
+#![allow(dead_code)]
 #![cfg_attr(not(feature = "std"), no_std)]
 
 #[cfg(feature = "std")]
