@@ -1,5 +1,6 @@
 use alloc::vec::Vec;
-use byteorder::{BigEndian, WriteBytesExt};
+use byteorder::{BigEndian};
+use crate::write_bytes::WriteBytesExt;
 
 pub type U256 = [u64; 4];
 pub type U512 = [u64; 8];

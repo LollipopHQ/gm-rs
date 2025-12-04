@@ -1,5 +1,4 @@
 use alloc::vec::Vec;
-use rand::RngCore;
 
 use crate::error::{Sm2Error, Sm2Result};
 use crate::fields::FieldModOperation;
@@ -89,6 +88,7 @@ pub const SM2_G_Y: U256 = [
     0xbc3736a2f4f6779c,
 ];
 
+#[cfg(feature = "rand")]
 #[inline(always)]
 pub fn random_u256() -> U256 {
     let mut rng = rand::thread_rng();
@@ -96,6 +96,24 @@ pub fn random_u256() -> U256 {
     let mut ret;
     loop {
         rng.fill_bytes(&mut buf[..]);
+        ret = u256_from_be_bytes(&buf);
+        if u256_cmp(&ret, &SM2_P_MINUS_ONE) < 0 && ret != [0, 0, 0, 0] {
+            break;
+        }
+    }
+    ret
+}
+
+#[cfg(all(not(feature = "std"), feature = "getrandom"))]
+#[inline(always)]
+pub fn random_u256() -> U256 {
+    let mut buf: [u8; 32] = [0; 32];
+    let mut ret;
+    loop {
+        let result = getrandom::fill(&mut buf[..]);
+        if result.is_err() {
+            continue;
+        }
         ret = u256_from_be_bytes(&buf);
         if u256_cmp(&ret, &SM2_P_MINUS_ONE) < 0 && ret != [0, 0, 0, 0] {
             break;

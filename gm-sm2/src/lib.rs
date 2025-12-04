@@ -22,6 +22,7 @@ pub mod pkcs;
 pub mod u256;
 pub(crate) mod fields;
 pub(crate) mod sm2p256_table;
+pub(crate) mod write_bytes;
 
 /// Fp 的加法，减法，乘法并不是简单的四则运算。其运算结果的值必须在Fp的有限域中，这样保证椭圆曲线变成离散的点
 ///

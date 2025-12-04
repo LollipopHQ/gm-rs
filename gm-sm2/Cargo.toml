@@ -14,13 +14,14 @@ documentation = "https://docs.rs/gm-sm2/"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-byteorder = "1.0.0"
-rand = "0.8.4"
-hex = "0.4"
-num-traits = "0.2.14"
+byteorder = { version = "1.5.0", default-features = false }
+rand = { version = "0.8.4", optional = true }
+getrandom = { version = "0.3.4", default-features = false, features = ["wasm_js"], optional = true }
+hex = { version = "0.4", default-features = false, features = ["alloc"] }
+num-traits = { version = "0.2.19", default-features = false }
 gm-sm3 = { version = "0.10.0", path = "../gm-sm3", optional = true }
-num-bigint = "0.4.4"
-yasna = { version = "0.5.2", features = ["num-bigint"] }
+num-bigint = { version = "0.4.4", default-features = false }
+yasna = { version = "0.5.2", features = ["num-bigint"], git = "https://github.com/qnighy/yasna.rs.git"}
 
 
 [dev-dependencies]
@@ -45,7 +46,12 @@ optional = true
 default = [
     "sec1",
     "gm-sm3",
+    "getrandom",
 ]
 std = [
-    "gm-sm3/std"
+    "gm-sm3/std",
+    "hex/std",
+    "byteorder/std",
+    "rand",
+    "num-bigint/std"
 ]

@@ -1,5 +1,6 @@
 use alloc::vec::Vec;
-use byteorder::{BigEndian, WriteBytesExt};
+use byteorder::{BigEndian};
+use crate::write_bytes::WriteBytesExt;
 
 use gm_sm3::sm3_hash;
 
