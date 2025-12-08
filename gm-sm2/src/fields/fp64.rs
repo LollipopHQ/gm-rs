@@ -91,6 +91,7 @@ pub const SM2_G_Y: U256 = [
 #[cfg(feature = "rand")]
 #[inline(always)]
 pub fn random_u256() -> U256 {
+    use rand::RngCore;
     let mut rng = rand::thread_rng();
     let mut buf: [u8; 32] = [0; 32];
     let mut ret;
