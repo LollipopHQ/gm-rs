@@ -16,7 +16,7 @@ documentation = "https://docs.rs/gm-sm2/"
 [dependencies]
 byteorder = { version = "1.5.0", default-features = false }
 rand = { version = "0.8.4", optional = true }
-getrandom = { version = "0.3.4", default-features = false, features = ["wasm_js"], optional = true }
+sp-io = { git = "https://github.com/paritytech/polkadot-sdk", branch = "stable2506", default-features = false, optional = true }
 hex = { version = "0.4", default-features = false, features = ["alloc"] }
 num-traits = { version = "0.2.19", default-features = false }
 gm-sm3 = { version = "0.10.0", path = "../gm-sm3", optional = true }
@@ -46,7 +46,7 @@ optional = true
 default = [
     "sec1",
     "gm-sm3",
-    "getrandom",
+    "sp-io",
 ]
 std = [
     "gm-sm3/std",

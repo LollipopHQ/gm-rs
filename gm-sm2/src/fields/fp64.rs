@@ -105,16 +105,12 @@ pub fn random_u256() -> U256 {
     ret
 }
 
-#[cfg(all(not(feature = "std"), feature = "getrandom"))]
+#[cfg(not(feature = "std"))]
 #[inline(always)]
 pub fn random_u256() -> U256 {
-    let mut buf: [u8; 32] = [0; 32];
     let mut ret;
     loop {
-        let result = getrandom::fill(&mut buf[..]);
-        if result.is_err() {
-            continue;
-        }
+        let buf = sp_io::offchain::random_seed();
         ret = u256_from_be_bytes(&buf);
         if u256_cmp(&ret, &SM2_P_MINUS_ONE) < 0 && ret != [0, 0, 0, 0] {
             break;
